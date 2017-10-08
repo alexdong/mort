@@ -1,0 +1,87 @@
+"""
+Settings for the mrt tool
+"""
+
+# https://www.browserstack.com/accounts/settings
+# Under "Automate"
+BROWSER_STACK_ACCESS_KEY = "alexdong2:zTfEQsvdPX1Api6Mp8sy"
+
+FORCE_REAL_DEVICE = True
+
+# Please order the devices with the popularity so that we can run
+# mrt against "top 3 devices". Note that the "Mobile Device Info"
+# reported by Google Analytics can be slightly different from
+# what browserstack uses.
+#
+# Use the following endpoint to get a list of all supported browsers
+#
+#   curl -u "{{ACCESS_KEY}}" -H "Content-Type: application/json" \
+#       -H "Accept: application/json" \
+#       https://www.browserstack.com/screenshots/browsers.json
+TARGETS = [
+    {"browser": "Mobile Safari", "device": "iPhone 6"},
+    {"browser": "Mobile Safari", "device": "iPhone 6s"},
+    {"browser": "Mobile Safari", "device": "iPhone 5s"},
+    {"browser": "chrome", "device": "Samsung Galaxy S6"},
+    {"browser": "chrome", "device": "Samsung Galaxy S5"},
+    {"browser": "chrome", "device": "Samsung Galaxy S7"},
+    {"browser": "Android Browser", "device": "Samsung Galaxy S7"},
+    {"browser": "Mobile Safari", "device": "iPhone 6 Plus"},
+    {"browser": "Mobile Safari", "device": "iPad 4th"},
+    {"browser": "Mobile Safari", "device": "iPad 4th"},
+    {"os": "Windows", "os_version": "10",
+        "browser": "chrome", "browser_version": "54.0"},
+    {"os": "Windows", "os_version": "10",
+        "browser": "chrome", "browser_version": "59.0"},
+    {"os": "Windows", "os_version": "10", "browser": "edge"},
+    {"os": "Windows", "os_version": "7", "browser": "ie", "browser_version": "11.0"},
+    {"os": "Windows", "os_version": "10",
+        "browser": "ie", "browser_version": "14.0"},
+    {"os": "OS X", "os_version": "Yosemite",
+        "browser": "chrome", "browser_version": "54.0"},  # 10.10
+    {"os": "OS X", "os_version": "El Capitan", "browser": "firefox"},  # 10.10
+    {"os": "OS X", "os_version": "Sierra", "browser": "chrome",
+        "browser_version": "58.0"},  # 12.10
+]
+
+# List all urls 
+SERVER = "https://staging.happymoose.nz"
+SCREEN_SHOT_SAVED_TO = "/Users/alexdong/Dropbox/HappyMoose/MRTScreenshots"
+URLS = [
+    "/",
+    "/products/collage_posters",
+    "/products/giant_strips",
+    "/products/framed_prints",
+    "/products/square_collage_frames",
+    "/products/wall_dots",
+    "/products/photo_wall_decals",
+    "/products/honeycombs",
+    "/products/sleek_boards",
+    "/products/large_format_prints",
+    "/products/panoramic_prints",
+    "/products/round_prints",
+    "/products/photobooth_strips",
+    "/products/square_prints",
+    "/products/polaroid_prints",
+    "/products/classic_prints",
+    "/products/wooden_hangers",
+
+    "/pages/shipping.html",
+    "/pages/size-chart.html",
+    "/pages/testimonials.html",
+    "/pages/contact.html",
+    "/pages/about.html",
+    "/programs/why-we-care.html",
+    "/pages/printers-colour-profiles.html",
+    "/programs/volume-discount.html",
+    "/leads/paper-sample-kit.html",
+    "/programs/photographer-package.html",
+
+    "/blog",
+    "/blog/photo-print-matte-open-frame-size-explained"
+
+    "/cart/8359.cg_OttMGcRlbSF5ZrnqOI842_bc",
+    "/checkout/8359.cg_OttMGcRlbSF5ZrnqOI842_bc",
+    "/editor?item_id=48153.rLP2dVh5RnrSzKYnWVVy7vZiC3s",
+    "/editor?product=square_collage_frames-3x3-",
+]
