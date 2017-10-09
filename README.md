@@ -63,6 +63,11 @@ The `--urls` allows us to zoom in onto a set of urls that we are working on:
 - `pip install -r requirements.txt`
 - Modify the `local_conf.py.sample` to your needs and save it as `mtr/local_conf.py`
 
+# Develop
+
+- `brew install modd`
+- `modd`
+
 # TODO
 
 Mrt scratches my own itch and I don't have any near term plan to extend it. But it's far from finished by any stretch of imagination. Following is a list of some areas PR will be greatly appreciated. 

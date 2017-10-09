@@ -17,6 +17,9 @@ FORCE_REAL_DEVICE = True
 # reported by Google Analytics can be slightly different from
 # what browserstack uses.
 #
+# Visit this page to get a full list of all OS and browsers
+#   https://www.browserstack.com/list-of-browsers-and-platforms?product=screenshots
+#
 # Use the following endpoint to get a list of all supported browsers
 #
 #   curl -u "{{ACCESS_KEY}}" -H "Content-Type: application/json" \

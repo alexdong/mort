@@ -3,3 +3,6 @@ scikit-image
 imutils
 ipython
 mypy
+pytest
+pytest-timeout
+pylint
