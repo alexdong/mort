@@ -4,7 +4,7 @@ Settings for the mrt tool
 
 # https://www.browserstack.com/accounts/settings
 # Under "Automate"
-BROWSER_STACK_ACCESS_KEY = "alexdong2:zTfEQsvdPX1Api6Mp8sy"
+BROWSER_STACK_ACCESS_KEY = ""
 
 FORCE_REAL_DEVICE = True
 
