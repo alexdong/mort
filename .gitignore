@@ -1,5 +1,7 @@
 # Local settings
 local_conf.py
+.vscode
+.idea
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

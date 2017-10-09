@@ -2,9 +2,13 @@
 Settings for the mrt tool
 """
 
+# Please adjust your loglevel
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 # https://www.browserstack.com/accounts/settings
-# Under "Automate"
-BROWSER_STACK_ACCESS_KEY = ""
+# Under "Automate". It's a tuple of `('username', 'token')`
+BROWSER_STACK_ACCESS_KEY = ("", "")
 
 FORCE_REAL_DEVICE = True
 
@@ -19,29 +23,118 @@ FORCE_REAL_DEVICE = True
 #       -H "Accept: application/json" \
 #       https://www.browserstack.com/screenshots/browsers.json
 TARGETS = [
-    {"browser": "Mobile Safari", "device": "iPhone 6"},
-    {"browser": "Mobile Safari", "device": "iPhone 6s"},
-    {"browser": "Mobile Safari", "device": "iPhone 5s"},
-    {"browser": "chrome", "device": "Samsung Galaxy S6"},
-    {"browser": "chrome", "device": "Samsung Galaxy S5"},
-    {"browser": "chrome", "device": "Samsung Galaxy S7"},
-    {"browser": "Android Browser", "device": "Samsung Galaxy S7"},
-    {"browser": "Mobile Safari", "device": "iPhone 6 Plus"},
-    {"browser": "Mobile Safari", "device": "iPad 4th"},
-    {"browser": "Mobile Safari", "device": "iPad 4th"},
-    {"os": "Windows", "os_version": "10",
-        "browser": "chrome", "browser_version": "54.0"},
-    {"os": "Windows", "os_version": "10",
-        "browser": "chrome", "browser_version": "59.0"},
-    {"os": "Windows", "os_version": "10", "browser": "edge"},
-    {"os": "Windows", "os_version": "7", "browser": "ie", "browser_version": "11.0"},
-    {"os": "Windows", "os_version": "10",
-        "browser": "ie", "browser_version": "14.0"},
-    {"os": "OS X", "os_version": "Yosemite",
-        "browser": "chrome", "browser_version": "54.0"},  # 10.10
-    {"os": "OS X", "os_version": "El Capitan", "browser": "firefox"},  # 10.10
-    {"os": "OS X", "os_version": "Sierra", "browser": "chrome",
-        "browser_version": "58.0"},  # 12.10
+  {
+    "os": "android",
+    "os_version": "4.1",
+    "browser": "Android Browser",
+    "device": "Samsung Galaxy Note 2",
+    "browser_version": null,
+  },
+  {
+    "os": "android",
+    "os_version": "4.3",
+    "browser": "Android Browser",
+    "device": "Samsung Galaxy S4",
+    "browser_version": null,
+  },
+  {
+    "os": "android",
+    "os_version": "4.4",
+    "browser": "Android Browser",
+    "device": "Samsung Galaxy S5",
+    "browser_version": null,
+  },
+  {
+    "os": "android",
+    "os_version": "5.0",
+    "browser": "Android Browser",
+    "device": "Google Nexus 9",
+    "browser_version": null,
+  },
+  {
+    "os": "android",
+    "os_version": "5.0",
+    "browser": "Android Browser",
+    "device": "Google Nexus 6",
+    "browser_version": null,
+  },
+  {
+    "os": "ios",
+    "os_version": "7.0",
+    "browser": "Mobile Safari",
+    "device": "iPhone 5S",
+    "browser_version": null,
+  },
+    {
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPhone 6",
+    "browser_version": null,
+  },
+  {
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPhone 6 Plus",
+    "browser_version": null,
+  },
+  {
+    "os": "ios",
+    "os_version": "7.0",
+    "browser": "Mobile Safari",
+    "device": "iPad 4th",
+    "browser_version": null,
+  },
+  {
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPad Air",
+    "browser_version": null,
+  },
+  {
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPhone 6",
+    "browser_version": null,
+  },
+{
+    "os": "Windows",
+    "os_version": "10",
+    "browser": "chrome",
+    "device": null,
+    "browser_version": "50.0",
+  },
+  {
+    "os": "Windows",
+    "os_version": "10",
+    "browser": "ie",
+    "device": null,
+    "browser_version": "11.0",
+  },
+  {
+    "os": "Windows",
+    "os_version": "10",
+    "browser": "edge",
+    "device": null,
+    "browser_version": "14.0",
+  },
+{
+    "os": "OS X",
+    "os_version": "Yosemite",
+    "browser": "chrome",
+    "device": null,
+    "browser_version": "50.0",
+  },
+     {
+    "os": "OS X",
+    "os_version": "El Capitan",
+    "browser": "chrome",
+    "device": null,
+    "browser_version": "50.0",
+  },
 ]
 
 # List all urls 

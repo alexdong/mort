@@ -61,7 +61,7 @@ The `--urls` allows us to zoom in onto a set of urls that we are working on:
 # Installation
 
 - `pip install -r requirements.txt`
-- Modify the `local_conf.py.sample` to your needs and save it as `local_conf.py`
+- Modify the `local_conf.py.sample` to your needs and save it as `mtr/local_conf.py`
 
 # TODO
 
