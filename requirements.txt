@@ -1,4 +1,5 @@
 requests
+httplib2
 scikit-image
 imutils
 ipython
