@@ -55,21 +55,24 @@ def submit_request(path: str, targets: List[Dict]) -> str:
 
     # Pull out the job id and start polling
     job_id = r.json()['job_id']
-    logger.info("BrowserStack returns job id: %d", job_id)
+    logger.info("BrowserStack returns job id: %s", job_id)
     return job_id
 
 
-def wait_and_fetch_all_urls(job_id: str) -> List[str]:
+def wait_and_fetch_all_urls(job_id: str, stop_after_tries: int = 30) -> List[str]:
     """
     Poll to see whether the job is ready every 2 seconds.
     When all the screenshots are ready, pull the `full_url` out and
     return them.
 
     :param job_id: the screen shot job returned by BrowserStack.
+    :param stop_after_tries: how many tries before we give up. The default
+        value `30` will give us a wait time up to 60 seconds.
     :return: List of urls to download
     """
     # Get grab all the links
-    while True:
+    for tries in range(0, stop_after_tries):
+        logger.debug("poll job id: %s for the %d time", job_id, tries)
         r = requests.get('https://www.browserstack.com/screenshots/' + job_id + '.json', auth=BROWSER_STACK_ACCESS_KEY)
         logger.debug("Job returns: %d", r.status_code)
         logger.debug("    payload: %s", r.content)
@@ -80,8 +83,11 @@ def wait_and_fetch_all_urls(job_id: str) -> List[str]:
         else:
             time.sleep(2)
 
+    logger.info("Give up after %s tries", stop_after_tries)
+    return []
 
-if __name__ == "__main__":
+
+# if __name__ == "__main__":
     # print(submit_request("/products/collage-posters", [{
     #         "os": "android",
     #         "os_version": "5.0",
@@ -89,4 +95,4 @@ if __name__ == "__main__":
     #         "device": "Google Nexus 6",
     #         "browser_version": "",
     #     }]))
-    print(wait_and_fetch_all_urls('fdd01e6683e0474ede370b753f870542f364f8ba'))
+    # print(wait_and_fetch_all_urls('fdd01e6683e0474ede370b753f870542f364f8ba'))

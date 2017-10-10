@@ -6,3 +6,4 @@ mypy
 pytest
 pytest-timeout
 pylint
+coverage
