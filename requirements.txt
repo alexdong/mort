@@ -2,6 +2,7 @@ requests
 httplib2
 scikit-image
 imutils
+click
 ipython
 mypy
 pytest

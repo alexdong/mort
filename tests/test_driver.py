@@ -2,7 +2,7 @@ from unittest import mock, TestCase
 
 import pytest
 
-from mtr.driver import submit_request, wait_and_fetch_all_urls, InvalidRequestError
+from mtr.driver import submit_request, wait_and_fetch_all_urls, InvalidRequestError, download_latest_target_list
 
 
 class TestSubmitRequest(TestCase):
@@ -94,3 +94,12 @@ class TestWaitAndFetch(TestCase):
         self.assertEqual(sleep.call_count, 0)
         self.assertEqual(len(urls), 1)
         self.assertIn('android_Google-Nexus-6_5.0_portrait', urls[0])
+
+    @mock.patch('requests.get')
+    def test_download_latest_target_list(self, get):
+        resp = mock.MagicMock()
+        resp.content = b"abc"
+        resp.json = lambda: [{}, {}]
+        get.return_value = resp
+        target_count = download_latest_target_list("/tmp/targets.json")
+        self.assertEqual(2, target_count)

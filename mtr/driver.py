@@ -87,6 +87,22 @@ def wait_and_fetch_all_urls(job_id: str, stop_after_tries: int = 30) -> List[str
     return []
 
 
+def download_latest_target_list(to_json_file: str) -> int:
+    """
+    Download the latest list of available OS and browsers from BrowserStack,
+    save it into `to_file` and return the total number of targets
+
+    :param to_file: the full path to the list file on disk.
+    :return: the total number of `targets` available
+    """
+    logger.debug("downloading latest target list to %s", to_json_file)
+    r = requests.get('https://www.browserstack.com/screenshots/browsers.json', auth=BROWSER_STACK_ACCESS_KEY)
+    with open(to_json_file, 'wb') as fp:
+        fp.write(r.content)
+    return len(r.json())
+
+
+
 # if __name__ == "__main__":
     # print(submit_request("/products/collage-posters", [{
     #         "os": "android",
@@ -96,3 +112,4 @@ def wait_and_fetch_all_urls(job_id: str, stop_after_tries: int = 30) -> List[str
     #         "browser_version": "",
     #     }]))
     # print(wait_and_fetch_all_urls('fdd01e6683e0474ede370b753f870542f364f8ba'))
+    # print(download_latest_target_list("./all_os_browsers.json"))

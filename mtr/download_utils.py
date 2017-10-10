@@ -48,10 +48,10 @@ def download(url: str, to_dir: str) -> str:
     return to_file
 
 
-def create_dir_if_not_exist(dir: str) -> None:
-    if not os.path.exists(dir):
-        logger.debug("creating dir: %s", str)
-        os.makedirs(dir)
+def create_dir_if_not_exist(path: str) -> None:
+    if not os.path.exists(path):
+        logger.debug("creating dir: %s", path)
+        os.makedirs(path)
 
 
 def get_filename_from_url(url: str) -> str:
@@ -59,8 +59,10 @@ def get_filename_from_url(url: str) -> str:
 
 
 # if __name__ == "__main__":
-    # print(download("https://www.browserstack.com/screenshots/fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg", "/tmp"))
+    # print(download("https://www.browserstack.com/screenshots/" +
+#       "fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg", "/tmp"))
     # print(download_urls(
     #     [
-    #         "https://www.browserstack.com/screenshots/fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg"],
+    #         "https://www.browserstack.com/screenshots/" +
+    #           "fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg"],
     #     "/tmp"))
