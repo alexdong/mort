@@ -1,4 +1,5 @@
 # Local settings
+targets.json
 local_conf.py
 .vscode
 .idea
