@@ -58,9 +58,9 @@ def get_filename_from_url(url: str) -> str:
     return url.split('/')[-1]
 
 
-# if __name__ == "__main__":
-    # print(download("https://www.browserstack.com/screenshots/" +
-#       "fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg", "/tmp"))
+if __name__ == "__main__":
+    print(download("https://www.browserstack.com/screenshots/" +
+      "fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg", "/tmp"))
     # print(download_urls(
     #     [
     #         "https://www.browserstack.com/screenshots/" +

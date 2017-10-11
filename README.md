@@ -24,6 +24,8 @@ Mrt is a simple, albeit a tasteful, wrapper over three important services that d
 
 The [SSIM (PDF)](http://www.cns.nyu.edu/pub/eero/wang03-reprint.pdf) approach gives more control over both the comparison process, eg multichannel, dynamic range or gaussian weights, and more output details regards the similarities, making it superior to the hard coded approach used in Yandex's [looks-same](https://github.com/gemini-testing/looks-same) or Yahoo's [blink-diff](https://github.com/yahoo/blink-diff). (Recommended [default parameters](https://github.com/scikit-image/scikit-image/blob/adc1a19dd5083f89cf04caf8cd9ff19916a4a293/skimage/measure/_structural_similarity.py#L67) have been set to match the implementation of Wang et. al)
 
+* Threadshold algorithm: instead of a bimodal threadshold algorithm most image diff implementation uses, we use a simple hard coded approach. TODO
+
 * Mrt relies on **git**'s hash value for different versions. Different from the `gemini` approach, instead of maintaining a golden standard of a set of screen shots, which inevitably brings the burden of maintaining it, mrt takes a lightweight approach: it generates the screen shots with the current git hash, retrieved by running `git rev-parse HEAD`.
 
 # Concepts & Terminology

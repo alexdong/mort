@@ -144,6 +144,12 @@ TARGETS = [
 # List all urls 
 SERVER = "https://staging.happymoose.nz"
 SCREEN_SHOT_SAVED_TO = "/Users/alexdong/Dropbox/HappyMoose/MRTScreenshots"
+
+
+# How shall we draw the difference boxes
+IMAGE_DIFF_BOX_COLOR = (0, 0, 255)  # Red
+IMAGE_DIFF_BOX_STROKE_WIDTH = 2
+
 URLS = [
     "/",
     "/products/collage_posters",
