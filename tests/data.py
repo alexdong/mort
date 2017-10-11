@@ -39,3 +39,6 @@ JOB_DETAIL = {
          "id": "d557ed648e109ac1d947db78f7693f3ef76a883b",
          "created_at": "2017-10-09 21:41:07 UTC"},
     ]}
+
+GIT_HASH_CURR = "5d8f43a"
+GIT_HASH_REF = "013d57e"
