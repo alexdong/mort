@@ -1,6 +1,6 @@
 from unittest import mock, TestCase
 
-from mtr.download_utils import get_filename_from_url, download, create_dir_if_not_exist
+from mort.download_utils import get_filename_from_url, download, create_dir_if_not_exist
 
 
 class TestUtils(TestCase):
@@ -12,7 +12,7 @@ class TestUtils(TestCase):
             "android_Google-Nexus-6_5.0_portrait.jpg", get_filename_from_url(self.URL))
 
     @mock.patch("httplib2.Http.request")
-    @mock.patch('mtr.download_utils.create_dir_if_not_exist')
+    @mock.patch('mort.download_utils.create_dir_if_not_exist')
     def test_download(self, create_dir, request):
         request.return_value = (None, b"abc")
         file_path = download(self.URL, "/tmp")

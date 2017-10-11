@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from mtr.imgdiff import get_similarity_index, generate_annotated_diff_image
+from mort.imgdiff import get_similarity_index, generate_annotated_diff_image
 
 
 class TestImageDiff(TestCase):

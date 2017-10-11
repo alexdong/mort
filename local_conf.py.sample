@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 BROWSER_STACK_ACCESS_KEY = ("", "")
 
 # Where the target list is
-TARGET_LIST_FILE_PATH = ""
+TARGET_LIST_FILE_PATH = "/Users/alexdong/Projects/mort/os-device-list.json"
 
 # Please order the devices with the popularity so that we can run
 # mrt against "top 3 devices". Note that the "Mobile Device Info"
@@ -32,118 +32,118 @@ TARGETS = [
     "os_version": "4.1",
     "browser": "Android Browser",
     "device": "Samsung Galaxy Note 2",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "android",
     "os_version": "4.3",
     "browser": "Android Browser",
     "device": "Samsung Galaxy S4",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "android",
     "os_version": "4.4",
     "browser": "Android Browser",
     "device": "Samsung Galaxy S5",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "android",
     "os_version": "5.0",
     "browser": "Android Browser",
     "device": "Google Nexus 9",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "android",
     "os_version": "5.0",
     "browser": "Android Browser",
     "device": "Google Nexus 6",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "ios",
     "os_version": "7.0",
     "browser": "Mobile Safari",
     "device": "iPhone 5S",
-    "browser_version": null,
+    "browser_version": "",
   },
     {
     "os": "ios",
     "os_version": "8.3",
     "browser": "Mobile Safari",
     "device": "iPhone 6",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "ios",
     "os_version": "8.3",
     "browser": "Mobile Safari",
     "device": "iPhone 6 Plus",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "ios",
     "os_version": "7.0",
     "browser": "Mobile Safari",
     "device": "iPad 4th",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "ios",
     "os_version": "8.3",
     "browser": "Mobile Safari",
     "device": "iPad Air",
-    "browser_version": null,
+    "browser_version": "",
   },
   {
     "os": "ios",
     "os_version": "8.3",
     "browser": "Mobile Safari",
     "device": "iPhone 6",
-    "browser_version": null,
+    "browser_version": "",
   },
 {
     "os": "Windows",
     "os_version": "10",
     "browser": "chrome",
-    "device": null,
+    "device": "",
     "browser_version": "50.0",
   },
   {
     "os": "Windows",
     "os_version": "10",
     "browser": "ie",
-    "device": null,
+    "device": "",
     "browser_version": "11.0",
   },
   {
     "os": "Windows",
     "os_version": "10",
     "browser": "edge",
-    "device": null,
+    "device": "",
     "browser_version": "14.0",
   },
 {
     "os": "OS X",
     "os_version": "Yosemite",
     "browser": "chrome",
-    "device": null,
+    "device": "",
     "browser_version": "50.0",
   },
      {
     "os": "OS X",
     "os_version": "El Capitan",
     "browser": "chrome",
-    "device": null,
+    "device": "",
     "browser_version": "50.0",
   },
 ]
 
 # List all urls 
 SERVER = "https://staging.happymoose.nz"
-SCREEN_SHOT_SAVED_TO = "/Users/alexdong/Dropbox/HappyMoose/MRTScreenshots"
+SCREEN_SHOT_SAVED_TO = "/Users/alexdong/Dropbox/HappyMoose/MortScreenshots"
 
 
 # How shall we draw the difference boxes

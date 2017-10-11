@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from mtr.target_matcher import matches, get_targets
+from mort.target_matcher import matches, get_targets
 
 
 class TestIsTarget(TestCase):

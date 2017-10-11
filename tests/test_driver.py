@@ -2,7 +2,7 @@ from unittest import mock, TestCase
 
 import pytest
 
-from mtr.driver import submit_request, wait_and_fetch_all_urls, InvalidRequestError, download_latest_target_list
+from mort.driver import submit_request, wait_and_fetch_all_urls, InvalidRequestError, download_latest_target_list
 
 
 class TestSubmitRequest(TestCase):

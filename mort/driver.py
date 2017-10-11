@@ -4,7 +4,7 @@ from typing import List, Dict
 
 import requests
 
-from mtr.local_conf import BROWSER_STACK_ACCESS_KEY, SERVER
+from mort.local_conf import BROWSER_STACK_ACCESS_KEY, SERVER
 
 logger = logging.getLogger(__name__)
 
@@ -101,15 +101,13 @@ def download_latest_target_list(to_json_file: str) -> int:
         fp.write(r.content)
     return len(r.json())
 
-
-
 # if __name__ == "__main__":
-    # print(submit_request("/products/collage-posters", [{
-    #         "os": "android",
-    #         "os_version": "5.0",
-    #         "browser": "Android Browser",
-    #         "device": "Google Nexus 6",
-    #         "browser_version": "",
-    #     }]))
-    # print(wait_and_fetch_all_urls('fdd01e6683e0474ede370b753f870542f364f8ba'))
-    # print(download_latest_target_list("./all_os_browsers.json"))
+# print(submit_request("/products/collage-posters", [{
+#         "os": "android",
+#         "os_version": "5.0",
+#         "browser": "Android Browser",
+#         "device": "Google Nexus 6",
+#         "browser_version": "",
+#     }]))
+# print(wait_and_fetch_all_urls('fdd01e6683e0474ede370b753f870542f364f8ba'))
+# print(download_latest_target_list("./os-device-list.json"))
