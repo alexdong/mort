@@ -4,12 +4,16 @@ from typing import List, Dict
 
 import requests
 
-from mort.local_conf import BROWSER_STACK_ACCESS_KEY, SERVER
+from mort.local_conf import BROWSER_STACK_ACCESS_KEY, TEST_AGAINST_SERVER
 
 logger = logging.getLogger(__name__)
 
 
 class InvalidRequestError(Exception):
+    pass
+
+
+class RequestTimeoutError(Exception):
     pass
 
 
@@ -37,7 +41,7 @@ def submit_request(path: str, targets: List[Dict]) -> str:
         screen shots are ready.
     """
     # Request the screen shots
-    request_payload = {"url": SERVER + path, "browsers": targets}
+    request_payload = {"url": TEST_AGAINST_SERVER + path, "browsers": targets}
     headers = {'content-type': 'application/json', 'Accept': 'application/json'}
     logger.debug("Sending screen shot requests: %s", request_payload)
     r = requests.post('https://www.browserstack.com/screenshots',
@@ -59,7 +63,7 @@ def submit_request(path: str, targets: List[Dict]) -> str:
     return job_id
 
 
-def wait_and_fetch_all_urls(job_id: str, stop_after_tries: int = 30) -> List[str]:
+def get_job_details(job_id: str, stop_after_tries: int = 30) -> List[str]:
     """
     Poll to see whether the job is ready every 2 seconds.
     When all the screenshots are ready, pull the `full_url` out and
@@ -79,12 +83,15 @@ def wait_and_fetch_all_urls(job_id: str, stop_after_tries: int = 30) -> List[str
 
         payload = r.json()
         if 'done' == payload['state']:
-            return [screenshot['image_url'] for screenshot in payload['screenshots']]
+            return payload
         else:
             time.sleep(2)
 
-    logger.info("Give up after %s tries", stop_after_tries)
-    return []
+    raise RequestTimeoutError("Give up after %s tries" % stop_after_tries)
+
+
+def extract_urls_from_job_details(job_detail: Dict) -> List[str]:
+    return [screenshot['image_url'] for screenshot in job_detail['screenshots']]
 
 
 def download_latest_target_list(to_json_file: str) -> int:
@@ -109,5 +116,5 @@ def download_latest_target_list(to_json_file: str) -> int:
 #         "device": "Google Nexus 6",
 #         "browser_version": "",
 #     }]))
-# print(wait_and_fetch_all_urls('fdd01e6683e0474ede370b753f870542f364f8ba'))
+# print(get_job_details('fdd01e6683e0474ede370b753f870542f364f8ba'))
 # print(download_latest_target_list("./os-device-list.json"))

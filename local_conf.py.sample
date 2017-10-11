@@ -142,7 +142,7 @@ TARGETS = [
 ]
 
 # List all urls 
-SERVER = "https://staging.happymoose.nz"
+TEST_AGAINST_SERVER = "https://staging.happymoose.nz"
 SCREEN_SHOT_SAVED_TO = "/Users/alexdong/Dropbox/HappyMoose/MortScreenshots"
 
 

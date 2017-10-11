@@ -2,7 +2,7 @@ from unittest import mock, TestCase
 
 import pytest
 
-from mort.driver import submit_request, wait_and_fetch_all_urls, InvalidRequestError, download_latest_target_list
+from mort.driver import submit_request, get_job_details, InvalidRequestError, RequestTimeoutError,  download_latest_target_list, extract_urls_from_job_details
 
 
 class TestSubmitRequest(TestCase):
@@ -51,6 +51,29 @@ class TestSubmitRequest(TestCase):
 
 class TestWaitAndFetch(TestCase):
     JOB_ID = 'fdd01e6683e0474ede370b753f870542f364f8ba'
+    JOB_DETAIL = {
+        "id": "fdd01e6683e0474ede370b753f870542f364f8ba",
+        "state": "done",
+        "callback_url": None,
+        "win_res": "1024x768",
+        "mac_res": "1024x768",
+        "quality": "compressed",
+        "wait_time": 5,
+        "orientation": "portrait",
+        "screenshots": [
+            {"browser": "Android Browser",
+             "browser_version": "",
+             "os": "android",
+             "os_version": "5.0",
+             "device": "Google Nexus 6",
+             "image_url": "https://www.browserstack.com/screenshots/fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg",
+             "thumb_url": "https://www.browserstack.com/screenshots/fdd01e6683e0474ede370b753f870542f364f8ba/thumb_android_Google-Nexus-6_5.0_portrait.jpg",
+             "state": "done",
+             "url": "https://staging.happymoose.nz/products/collage-posters",
+             "orientation": None,
+             "id": "d557ed648e109ac1d947db78f7693f3ef76a883b",
+             "created_at": "2017-10-09 21:41:07 UTC"},
+        ]}
 
     @mock.patch('requests.get')
     @mock.patch('time.sleep')
@@ -58,40 +81,24 @@ class TestWaitAndFetch(TestCase):
         resp = mock.MagicMock()
         resp.json = lambda: {'state': 'all_queued'}
         get.return_value = resp
-        urls = wait_and_fetch_all_urls(self.JOB_ID, 1)
-        self.assertEqual(urls, [])
-        self.assertEqual(sleep.call_count, 1)
+        with pytest.raises(RequestTimeoutError):
+            urls = get_job_details(self.JOB_ID, 1)
+            self.assertEqual(urls, [])
+            self.assertEqual(sleep.call_count, 1)
 
     @mock.patch('requests.get')
     @mock.patch('time.sleep')
     def test_return_correct_list_when_ready(self, sleep, get):
         resp = mock.MagicMock()
-        resp.json = lambda: {
-            "id": "fdd01e6683e0474ede370b753f870542f364f8ba",
-            "state": "done",
-            "callback_url": None,
-            "win_res": "1024x768",
-            "mac_res": "1024x768",
-            "quality": "compressed",
-            "wait_time": 5,
-            "orientation": "portrait",
-            "screenshots": [
-                {"browser": "Android Browser",
-                 "browser_version": "",
-                 "os": "android",
-                 "os_version": "5.0",
-                 "device": "Google Nexus 6",
-                 "image_url": "https://www.browserstack.com/screenshots/fdd01e6683e0474ede370b753f870542f364f8ba/android_Google-Nexus-6_5.0_portrait.jpg",
-                 "thumb_url": "https://www.browserstack.com/screenshots/fdd01e6683e0474ede370b753f870542f364f8ba/thumb_android_Google-Nexus-6_5.0_portrait.jpg",
-                 "state": "done",
-                 "url": "https://staging.happymoose.nz/products/collage-posters",
-                 "orientation": None,
-                 "id": "d557ed648e109ac1d947db78f7693f3ef76a883b",
-                 "created_at": "2017-10-09 21:41:07 UTC"},
-            ]}
+        resp.json = lambda: self.JOB_DETAIL
         get.return_value = resp
-        urls = wait_and_fetch_all_urls(self.JOB_ID)
+        response = get_job_details(self.JOB_ID)
         self.assertEqual(sleep.call_count, 0)
+        self.assertIn('id', response)
+        self.assertIn('screenshots', response)
+
+    def test_extract_urls_from_job_details(self):
+        urls = extract_urls_from_job_details(self.JOB_DETAIL)
         self.assertEqual(len(urls), 1)
         self.assertIn('android_Google-Nexus-6_5.0_portrait', urls[0])
 
