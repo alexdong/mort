@@ -1,7 +1,7 @@
 import json
 from typing import Dict, List
 
-from .local_conf import TARGET_LIST_FILE_PATH
+from mort.local_conf import TARGET_LIST_FILE_PATH
 
 
 def matches(target: Dict, pattern: Dict) -> bool:

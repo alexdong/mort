@@ -3,7 +3,7 @@ import numpy
 from skimage.measure import compare_ssim
 from skimage.measure import structural_similarity as ssim
 
-from .local_conf import IMAGE_DIFF_BOX_COLOR, IMAGE_DIFF_BOX_STROKE_WIDTH
+from mort.local_conf import IMAGE_DIFF_BOX_COLOR, IMAGE_DIFF_BOX_STROKE_WIDTH
 
 
 def load_image(img_file: str) -> numpy.ndarray:

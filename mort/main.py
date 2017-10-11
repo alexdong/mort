@@ -1,8 +1,8 @@
 import click
 
-from .driver import download_latest_target_list
-from .local_conf import TARGETS
-from .target_matcher import matches
+from mort.driver import download_latest_target_list
+from mort.local_conf import TARGETS
+from mort.target_matcher import matches
 
 
 @click.group()

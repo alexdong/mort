@@ -1,6 +1,5 @@
 import logging
-import time
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 import requests
 
@@ -10,10 +9,6 @@ logger = logging.getLogger(__name__)
 
 
 class InvalidRequestError(Exception):
-    pass
-
-
-class RequestTimeoutError(Exception):
     pass
 
 
@@ -63,35 +58,19 @@ def submit_request(path: str, targets: List[Dict]) -> str:
     return job_id
 
 
-def get_job_details(job_id: str, stop_after_tries: int = 30) -> List[str]:
+def is_job_done(job_id: str) -> Tuple[bool, Dict]:
     """
-    Poll to see whether the job is ready every 2 seconds.
-    When all the screenshots are ready, pull the `full_url` out and
-    return them.
+    Check whether the job is finished and return the BrowserStack response with it.
 
     :param job_id: the screen shot job returned by BrowserStack.
-    :param stop_after_tries: how many tries before we give up. The default
-        value `30` will give us a wait time up to 60 seconds.
-    :return: List of urls to download
+    :return: (is_job_done?, payload)
     """
-    # Get grab all the links
-    for tries in range(0, stop_after_tries):
-        logger.debug("poll job id: %s for the %d time", job_id, tries)
-        r = requests.get('https://www.browserstack.com/screenshots/' + job_id + '.json', auth=BROWSER_STACK_ACCESS_KEY)
-        logger.debug("Job returns: %d", r.status_code)
-        logger.debug("    payload: %s", r.content)
+    r = requests.get('https://www.browserstack.com/screenshots/' + job_id + '.json', auth=BROWSER_STACK_ACCESS_KEY)
+    logger.debug("Job returns: %d", r.status_code)
+    logger.debug("    payload: %s", r.content)
 
-        payload = r.json()
-        if 'done' == payload['state']:
-            return payload
-        else:
-            time.sleep(2)
-
-    raise RequestTimeoutError("Give up after %s tries" % stop_after_tries)
-
-
-def extract_urls_from_job_details(job_detail: Dict) -> List[str]:
-    return [screenshot['image_url'] for screenshot in job_detail['screenshots']]
+    payload = r.json()
+    return 'done' == payload['state'], payload
 
 
 def download_latest_target_list(to_json_file: str) -> int:
@@ -116,5 +95,5 @@ def download_latest_target_list(to_json_file: str) -> int:
 #         "device": "Google Nexus 6",
 #         "browser_version": "",
 #     }]))
-# print(get_job_details('fdd01e6683e0474ede370b753f870542f364f8ba'))
+# print(is_job_done('fdd01e6683e0474ede370b753f870542f364f8ba'))
 # print(download_latest_target_list("./os-device-list.json"))
