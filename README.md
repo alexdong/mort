@@ -14,18 +14,6 @@ Think gemini or Needle as a unit test tool and mort as an integration suite. You
 
 [gemini-testing](https://github.com/gemini-testing/gemini) allows you to zoom in to a DOM element and run visual regression tests on this one node only. It aims to provide a harness for testing css and it even provides a nice feature to extract css converage data. 
 
-# Dependencies & Assumptions
-
-Mort is a simple, albeit a tasteful, wrapper over three important services that do the heavylifting. 
-
-* It uses [BrowserStack](https://www.browserstack.com/screenshots/api) for real device, parallel screenshots capturing. BrowserStack is not free.  Nor is your time.
-
-* It relies on [scikit-image](https://github.com/scikit-image/scikit-image)'s `skimage.measure.compare_ssim` algorithm to compute the mean Structural Similarity Index between two images. 
-
-The [SSIM (PDF)](http://www.cns.nyu.edu/pub/eero/wang03-reprint.pdf) approach gives more control over both the comparison process, eg multichannel, dynamic range or gaussian weights, and more output details regards the similarities, making it superior to the hard coded approach used in Yandex's [looks-same](https://github.com/gemini-testing/looks-same) or Yahoo's [blink-diff](https://github.com/yahoo/blink-diff). (Recommended [default parameters](https://github.com/scikit-image/scikit-image/blob/adc1a19dd5083f89cf04caf8cd9ff19916a4a293/skimage/measure/_structural_similarity.py#L67) have been set to match the implementation of Wang et. al)
-
-* Mort relies on **git**'s hash value for different versions. Different from the `gemini` approach, instead of maintaining a golden standard of a set of screen shots, which inevitably brings the burden of maintaining it, mort takes a lightweight approach: it generates the screen shots with the current git hash, retrieved by running `git rev-parse HEAD`.
-
 # Concepts & Terminology
 
 * `target`: a descriptor for a combination of a specific version of os and browser. A target is the basic unit for scheduling and comparison. The full list can be found on [BrowserStack's Browsers & Mobile Devices for Screenshot Testing page](https://www.browserstack.com/list-of-browsers-and-platforms?product=screenshots). Here is a couple of examples:
@@ -94,28 +82,60 @@ The `--urls` allows us to zoom in onto a set of urls that we are working on:
 
 # Installation
 
-1. Setup the python environment
+Configure it with your own settings with `cp local_conf.py.sample mort/local_conf.py`, then go to BrowserStack
+and paste in the access key.
+
+Additionally, you can fetch the latest os-device-list by running `mort update`.
+
+# Develop
 
     git clone git@github.com:alexdong/mort.git
     cd mort
     python -m venv . ; . bin/activate
     pip install -r requirements.txt
 
-2. Configure it with your own settings
-
-    cp local_conf.py.sample mort/local_conf.py
-    # Go to BrowserStack and paste in the access key
-    mort update os-device-list.json
-
-
-# Develop
-
     brew install modd
     modd
+    pytest
 
-# TODO
+
+# Giant shoulders
+
+Mort is a simple, albeit a tasteful, wrapper over three important services that do the heavylifting.
+
+<div align="center">
+  <a href="https://www.browserstack.com/screenshots/api">
+    <img width="200" heigth="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+  </a>
+  <a href="http://scikit-image.org/">
+    <img width="200" heigth="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+  </a>
+  <a href="https://opencv.org/">
+    <img width="200" heigth="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+  </a>
+</div>
+
+* It uses [BrowserStack](https://www.browserstack.com/screenshots/api) for real device, parallel screenshots capturing.
+    BrowserStack is not free.  Nor is your time.
+
+* It relies on [scikit-image](https://github.com/scikit-image/scikit-image)'s `skimage.measure.compare_ssim` algorithm to compute the mean Structural Similarity Index between two images.
+
+* Mort relies on **git**'s hash value for different versions. Different from the `gemini` approach, instead of maintaining a golden standard of a set of screen shots, which inevitably brings the burden of maintaining it, mort takes a lightweight approach: it generates the screen shots with the current git hash, retrieved by running `git rev-parse HEAD`.
+
+# Limitations
 
 Mort scratches my own itch and I don't have any near term plan to extend it. But it's far from finished by any stretch of imagination. Following is a list of some areas PR will be greatly appreciated. 
 
-- `mort init`: Generate the default `mort.config.js` file if one doesn't exist in the current folder by taking the user through a list of questions. 
+- Gray scale only. The computer vision algorithm we use
+- `mort init`: Generate the default `mort.config.js` file if one doesn't exist in the current folder by taking the user through a list of questions.
 - Support login and authentication
+
+# Tech notes and limitations
+
+The main limitation of `mort` is that it's colour blind. It can only tell the differences between two greyscale images.
+This is not a limitation of the [SSIM algorithm(PDF)](http://www.cns.nyu.edu/pub/eero/wang03-reprint.pdf) but rather
+a deliberate trade off that's made by `scikit-image`.
+
+If you treat `mort` as an integration tool and use it alongside unit test tools like `gemini` or `needle`, then you
+should be well covered. There is also the potential for us to implement a simpler pixel-by-pixel comparison algorithm
+that's used Yandex's [looks-same](https://github.com/gemini-testing/looks-same) or Yahoo's [blink-diff](https://github.com/yahoo/blink-diff).
