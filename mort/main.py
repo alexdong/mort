@@ -16,7 +16,7 @@ def cli(ctx, target_filter, url_filter):
 @cli.command()
 @click.pass_obj
 def show(ctx_obj):
-    print([target for target in TARGETS if target_matches(ctx_obj['target_filter'], target)])
+    print([target for target in TARGETS if target_matches( target, ctx_obj['target_filter'])])
 
 
 @cli.command()

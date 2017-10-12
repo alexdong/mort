@@ -4,7 +4,9 @@ from typing import List, Dict
 
 from mort.download_utils import download_urls
 from mort.driver import submit_request, get_job_state, is_done
-from mort.repo_manager import extract_urls_from_job_details, local_dir_for_screen_shots, save_capture_result_to
+from mort.imgdiff import get_similarity_index
+from mort.repo_manager import extract_urls_from_job_details, local_dir_for_screen_shots, save_capture_result_to, \
+    load_screenshots
 
 logger = logging.getLogger(__name__)
 
@@ -42,9 +44,11 @@ def capture(paths: List[str], targets: List[Dict], git_hash: str):
     save_capture_result_to(results, git_hash)
 
 
-# def compare(paths: List[str], targets: List[Dict], curr_git_hash: str, ref_git_hash: str):
-#     curr_screen_shots = find_all_screenshots(curr_git_hash, paths, targets)
-#     ref_screen_shots = find_all_screenshots(ref_git_hash, paths, targets)
+def compare(paths: List[str], targets: List[Dict], curr_git_hash: str, ref_git_hash: str):
+    screenshot_pairs = load_screenshots(paths, targets, curr_git_hash, ref_git_hash)
+    for (path, target, curr_image_path, ref_image_path) in screenshot_pairs:
+        diff_index = get_similarity_index(curr_image_path, ref_image_path)
+        logger.debug("Image for %s + %s has similar index of %.2f", path, target, diff_index)
 
 if __name__ == '__main__':
     from mort.local_conf import PATHS, TARGETS

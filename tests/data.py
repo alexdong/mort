@@ -3,9 +3,9 @@ PATH = "/products/collage-posters"
 TARGETS = [
     {
         "os": "Windows",
-        "os_version": "XP",
+        "os_version": "10",
         "browser": "ie",
-        "browser_version": "7.0"
+        "browser_version": "11.0"
     },
     {
         "os": "ios",

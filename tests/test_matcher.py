@@ -15,14 +15,14 @@ class TestMatcher(TestCase):
     ]
 
     def test_single_match(self):
-        self.assertTrue(target_matches(self.TARGETS[0], {"os": "ios"}))
-        self.assertFalse(target_matches(self.TARGETS[0], {"os": "windows"}))
-        self.assertFalse(target_matches(self.TARGETS[0], {"os": "windows", "browser_version": "10"}))
+        self.assertTrue(target_matches( {"os": "ios"}, self.TARGETS[0]))
+        self.assertFalse(target_matches( {"os": "windows"}, self.TARGETS[0]))
+        self.assertFalse(target_matches( {"os": "windows", "browser_version": "10"}, self.TARGETS[0]))
 
-        self.assertFalse(target_matches(self.TARGETS[1], {"os": "ios"}))
-        self.assertTrue(target_matches(self.TARGETS[1], {"os_version": "xp"}))
-        self.assertTrue(target_matches(self.TARGETS[1], {"os_version": "xp", "browser": "ie"}))
-        self.assertTrue(target_matches(self.TARGETS[1], {"os_version": "xp", "browser": "ie", "browser_version": "7"}))
+        self.assertFalse(target_matches( {"os": "ios"}, self.TARGETS[1]))
+        self.assertTrue(target_matches( {"os_version": "xp"}, self.TARGETS[1]))
+        self.assertTrue(target_matches( {"os_version": "xp", "browser": "ie"}, self.TARGETS[1]))
+        self.assertTrue(target_matches( {"os_version": "xp", "browser": "ie", "browser_version": "7"}, self.TARGETS[1]))
 
     def test_match_against_target_list(self):
         self.assertGreaterEqual(len(get_targets({"device": "4s"})), 1)

@@ -1,4 +1,4 @@
-from typing import List, Callable, Any
+from typing import List, Callable, Any, Optional
 
 
 def iterable(l) -> bool:
@@ -14,8 +14,8 @@ def apply(func: Callable, args=None, kwargs=None):
         args = ()
     if kwargs is None:
         kwargs = {}
-    if not iterable(args):
-        args = (args, )
+    if type(args) is not tuple:
+        args = (args,)
 
     return func(*args, **kwargs)
 
@@ -33,3 +33,9 @@ def all(predicate: Callable[..., bool], l: List[Any]) -> bool:
             return False
     return True
 
+
+def first(predicate: Callable[..., bool], l: List[Any]) -> Optional[Any]:
+    for el in l:
+        if apply(predicate, el):
+            return el
+    return None

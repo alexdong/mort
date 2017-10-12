@@ -1,10 +1,18 @@
-from unittest import TestCase
+import json
+from unittest import mock, TestCase
 
-from mort.repo_manager import extract_urls_from_job_details, get_screenshot_path
-from tests.data import JOB_ID, JOB_DETAIL, GIT_HASH_CURR
+from mort.repo_manager import extract_urls_from_job_details, get_screenshot_path, get_screenshot
+from tests.data import JOB_ID, JOB_DETAIL, GIT_HASH_CURR, PATH
 
 
 class TestRepoManager(TestCase):
+    @mock.patch('mort.repo_manager.load_manifest_for')
+    def test_find_all_screenshots(self, load_manifest_for):
+        load_manifest_for.return_value = json.loads(open('./resources/manifest.json').read())
+        self.assertIsNone(get_screenshot(GIT_HASH_CURR, PATH, {"browser": "ie", "browser_version": "100"}))
+        screen_shot = get_screenshot(GIT_HASH_CURR, PATH, {"browser": "ie", "browser_version": "11"})
+        self.assertIn("740d33a68b06a04dd07dd5756824a11669740de/win10_ie_11.0.jpg", screen_shot['image_url'])
+
     def test_extract_urls_from_job_details(self):
         urls = extract_urls_from_job_details(JOB_DETAIL)
         self.assertEqual(len(urls), 1)

@@ -188,3 +188,5 @@ URLS = [
     "/editor?item_id=48153.rLP2dVh5RnrSzKYnWVVy7vZiC3s",
     "/editor?product=square_collage_frames-3x3-",
 ]
+
+SIMILARITY_THRESHOLD = 0.98

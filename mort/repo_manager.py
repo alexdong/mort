@@ -1,10 +1,12 @@
 import json
+from functools import partial
 import logging
 import os
 from typing import List, Dict, Optional, Tuple
 
 from mort.local_conf import SCREEN_SHOT_SAVED_TO
 from mort.matcher import target_matches
+from mort.list_utils import first
 
 logger = logging.getLogger(__name__)
 
@@ -33,11 +35,6 @@ def get_screenshot_path(git_hash: str, screenshot: Dict) -> str:
                         '/'.join(screenshot['image_url'].split('/')[-2:]))
 
 
-def load_manifest_for(git_hash: str) -> Dict:
-    manifest_file_path = os.path.join(SCREEN_SHOT_SAVED_TO, git_hash, "manifest.json")
-    return json.loads(open(manifest_file_path, 'r').read())
-
-
 def create_repo(git_hash: str, job_id: str):
     path = os.path.join(SCREEN_SHOT_SAVED_TO, git_hash, job_id)
     if not os.path.exists(path):
@@ -45,29 +42,29 @@ def create_repo(git_hash: str, job_id: str):
         os.makedirs(path)
 
 
-def find_all_screenshots(git_hash: str, paths: List[str], targets: List[Dict]) -> List[Tuple]:
+def load_screenshots(paths: List[str], targets: List[Dict], curr_git_hash: str, ref_git_hash: str) -> List[Tuple]:
     """
     Load all screenshots for the given `git_hash`, filtered them by `paths` and `targets`,
-    and return a list of tuples of `(path, target, screenshot_file_path)`
+    and return a list of tuples of `(path, target, curr screenshot path, reference screenshot path)`
     """
-    manifest = load_manifest_for(git_hash)
     results: List[Tuple] = []
-
-    candidates = [(path, screenshots) for (path, screenshots) in manifest.items() if path in paths]
-    for path, screenshots in candidates:
-        for screenshot in screenshots:
-            if not target_matches(screenshot, targets):
+    for path in paths:
+        for target in targets:
+            curr_screenshot = get_screenshot(curr_git_hash, path, target)
+            ref_screenshot = get_screenshot(ref_git_hash, path, target)
+            if not curr_screenshot or not ref_screenshot:
                 continue
 
-            screenshot_path = get_screenshot_path(git_hash, screenshot)
-            results.append((path, screenshot, screenshot_path))
+            curr_path = get_screenshot_path(curr_git_hash, curr_screenshot)
+            ref_path = get_screenshot_path(ref_git_hash, ref_screenshot)
+            results.append((path, target, curr_path, ref_path))
 
     return results
 
 
-def find_screenshot(git_hash: str, path: str, target: Dict) -> Optional[str]:
-    manifest = load_manifest_for(git_hash)
-    for screenshot in manifest[path]:
-        if target_matches(screenshot, target):
-            return get_screenshot_path(git_hash, screenshot)
-    return None
+def get_screenshot(git_hash: str, path: str, target_spec: Dict) -> Optional[Dict]:
+    """ Get the a specific screen shot details given git_hash, path and
+    target specification. Return None if nothing is found. """
+    manifest_file_path = os.path.join(SCREEN_SHOT_SAVED_TO, git_hash, "manifest.json")
+    manifest = json.loads(open(manifest_file_path, 'r').read())
+    return first(partial(target_matches, target_spec), manifest[path])
