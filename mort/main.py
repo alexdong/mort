@@ -1,10 +1,11 @@
 import json
+
 import click
 
-from mort.driver import download_latest_target_list
-from mort.local_conf import TARGETS, PATHS, TARGET_LIST_FILE_PATH
-from mort.file_utils import get_git_hash
 from mort import controller
+from mort.driver import download_latest_target_list
+from mort.file_utils import get_git_hash
+from mort.local_conf import TARGETS, PATHS, TARGET_LIST_FILE_PATH
 
 
 @click.group()
@@ -34,5 +35,3 @@ def compare(ctx, ref_git_hash):
 def update(save_as):
     print("Downloading the latest device and OS support list from BrowserStack ...")
     download_latest_target_list(save_as)
-
-

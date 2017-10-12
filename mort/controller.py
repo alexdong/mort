@@ -36,7 +36,7 @@ def capture(paths: List[str], targets: List[Dict], git_hash: str, per_request_ti
                 break
 
             done_count = len(list(filter(is_done, payload['screenshots'])))
-            logger.debug("Waiting [%d / %d]", done_count, len(targets))
+            logger.debug("Waiting %d seconds, working done so far [%d / %d]", tries, done_count, len(targets))
             time.sleep(1)
 
         results[path] = payload  # Take whatever finished at this moment
