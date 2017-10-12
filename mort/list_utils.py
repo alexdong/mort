@@ -14,7 +14,7 @@ def apply(func: Callable, args=None, kwargs=None):
         args = ()
     if kwargs is None:
         kwargs = {}
-    if type(args) is not tuple:
+    if not isinstance(args, tuple):
         args = (args,)
 
     return func(*args, **kwargs)
@@ -27,7 +27,10 @@ def some(predicate: Callable[..., bool], l: List[Any]) -> bool:
     return False
 
 
-def all(predicate: Callable[..., bool], l: List[Any]) -> bool:
+def every(predicate: Callable[..., bool], l: List[Any]) -> bool:
+    if not l:
+        return False
+
     for el in l:
         if not apply(predicate, el):
             return False

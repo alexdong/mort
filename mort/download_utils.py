@@ -6,6 +6,8 @@ from typing import List
 
 import httplib2
 
+from mort.file_utils import create_dir_if_not_exists
+
 logger = logging.getLogger(__name__)
 
 
@@ -20,6 +22,7 @@ def download_urls(urls: List[str], to_dir: str, pool_size: int = 16) -> int: # p
     :return: total number of images saved.
     """
     logger.debug("Download urls to %s: %s", to_dir, urls)
+    create_dir_if_not_exists(to_dir)
     with Pool(pool_size) as pool:
         pool.map(partial(download, to_dir=to_dir), urls)
     return len(urls)

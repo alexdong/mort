@@ -3,8 +3,8 @@ from typing import List, Dict, Tuple
 
 import requests
 
+from mort.list_utils import every
 from mort.local_conf import BROWSER_STACK_ACCESS_KEY, TEST_AGAINST_SERVER
-from mort.list_utils import all
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +75,7 @@ def get_job_state(job_id: str) -> Tuple[bool, Dict]:
     logger.debug("    payload: %s", r.content)
 
     payload = r.json()
-    return is_done(payload) or all(is_done, payload['screenshots']), payload
+    return is_done(payload) or every(is_done, payload['screenshots']), payload
 
 
 def download_latest_target_list(to_json_file: str) -> int:

@@ -3,6 +3,7 @@ from typing import Dict, List
 
 from mort.local_conf import TARGET_LIST_FILE_PATH
 
+
 def target_matches(pattern: Dict, target: Dict) -> bool:
     """
     Whether the `target` target_matches the `pattern`, which means that
@@ -32,4 +33,4 @@ def get_targets(pattern: Dict) -> List[Dict]:
     :param from_file: Location to the target list file we are loading all the targets from
     :return: List of all targets
     """
-    return [target for target in json.loads(open(TARGET_LIST_FILE_PATH).read()) if target_matches( pattern, target)]
+    return [target for target in json.loads(open(TARGET_LIST_FILE_PATH).read()) if target_matches(pattern, target)]

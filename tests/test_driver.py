@@ -40,7 +40,7 @@ class TestWaitAndFetch(TestCase):
     @mock.patch('requests.get')
     def test_is_job_done(self, get):
         resp = mock.MagicMock()
-        resp.json = lambda: {'state': 'all_queued'}
+        resp.json = lambda: {'state': 'all_queued', 'screenshots': []}
         get.return_value = resp
         is_job_completed, _ = get_job_state(JOB_ID)
         self.assertFalse(is_job_completed)

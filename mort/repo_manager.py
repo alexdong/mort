@@ -6,14 +6,16 @@ from typing import List, Dict, Optional, Tuple
 
 from mort.local_conf import SCREEN_SHOT_SAVED_TO
 from mort.matcher import target_matches
+from mort.driver import is_done
 from mort.list_utils import first
+from mort.file_utils import create_dir_if_not_exists
 
 logger = logging.getLogger(__name__)
 
 
 def extract_urls_from_job_details(job_detail: Dict) -> List[str]:
     """ Extract the screenshot urls from BrowserStack's `/screenshots/${JOB_ID}.json}` response """
-    return [screenshot['image_url'] for screenshot in job_detail['screenshots'] if screenshot['image_url']]
+    return [screenshot['image_url'] for screenshot in job_detail['screenshots'] if is_done(screenshot)]
 
 
 def local_dir_for_screen_shots(job_id: str, git_hash: str) -> str:
@@ -23,7 +25,10 @@ def local_dir_for_screen_shots(job_id: str, git_hash: str) -> str:
 
 def save_capture_result_to(capture_result: Dict, git_hash: str) -> str:
     """ Save the capture result into repo for the given `git_hash`. """
-    manifest_file_path = os.path.join(SCREEN_SHOT_SAVED_TO, git_hash, "manifest.json")
+    root_path = os.path.join(SCREEN_SHOT_SAVED_TO, git_hash)
+    create_dir_if_not_exists(root_path)
+
+    manifest_file_path = os.path.join(root_path, "manifest.json")
     with open(manifest_file_path, 'w') as fp:
         fp.write(json.dumps(capture_result, indent=4, sort_keys=True))
     return manifest_file_path
@@ -34,12 +39,6 @@ def get_screenshot_path(git_hash: str, screenshot: Dict) -> str:
     return os.path.join(SCREEN_SHOT_SAVED_TO, git_hash,
                         '/'.join(screenshot['image_url'].split('/')[-2:]))
 
-
-def create_repo(git_hash: str, job_id: str):
-    path = os.path.join(SCREEN_SHOT_SAVED_TO, git_hash, job_id)
-    if not os.path.exists(path):
-        logger.debug("creating repo dir for %s, %s", git_hash, job_id)
-        os.makedirs(path)
 
 
 def load_screenshots(paths: List[str], targets: List[Dict], curr_git_hash: str, ref_git_hash: str) -> List[Tuple]:
