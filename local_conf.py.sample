@@ -145,6 +145,8 @@ TARGETS = [
 TEST_AGAINST_SERVER = "https://staging.happymoose.nz"
 SCREEN_SHOT_SAVED_TO = "/Users/alexdong/Dropbox/HappyMoose/MortScreenshots"
 
+# Source code dir
+SOURCE_CODE_PATH = '/Users/alexdong/Projects/happymoose'
 
 # How shall we draw the difference boxes
 IMAGE_DIFF_BOX_COLOR = (0, 0, 255)  # Red
