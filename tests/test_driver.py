@@ -2,7 +2,7 @@ from unittest import mock, TestCase
 
 import pytest
 
-from mort.driver import submit_request, is_job_done, InvalidRequestError, \
+from mort.driver import submit_request, get_job_state, InvalidRequestError, \
     download_latest_target_list
 from tests.data import PATH, TARGETS, JOB_ID, JOB_DETAIL
 
@@ -42,7 +42,7 @@ class TestWaitAndFetch(TestCase):
         resp = mock.MagicMock()
         resp.json = lambda: {'state': 'all_queued'}
         get.return_value = resp
-        is_job_completed, _ = is_job_done(JOB_ID)
+        is_job_completed, _ = get_job_state(JOB_ID)
         self.assertFalse(is_job_completed)
 
     @mock.patch('requests.get')
@@ -50,7 +50,7 @@ class TestWaitAndFetch(TestCase):
         resp = mock.MagicMock()
         resp.json = lambda: JOB_DETAIL
         get.return_value = resp
-        is_job_completed, response = is_job_done(JOB_ID)
+        is_job_completed, response = get_job_state(JOB_ID)
         self.assertTrue(is_job_completed)
         self.assertIn('id', response)
         self.assertIn('screenshots', response)

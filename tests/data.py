@@ -14,6 +14,12 @@ TARGETS = [
     }
 ]
 
+PATHS = [
+    "/products/collage-posters",
+    "/products/wall-dots",
+    "/blog"
+]
+
 JOB_ID = 'fdd01e6683e0474ede370b753f870542f364f8ba'
 
 JOB_DETAIL = {

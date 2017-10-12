@@ -39,19 +39,12 @@ def download(url: str, to_dir: str) -> str:
     """
     to_file = os.path.join(to_dir, get_filename_from_url(url))
     logger.debug("Download %s to %s", url, to_file)
-    create_dir_if_not_exist(to_dir)
 
     h = httplib2.Http(".cache")
     (_, content) = h.request(url, "GET")
     with open(to_file, 'wb') as f:
         f.write(content)
     return to_file
-
-
-def create_dir_if_not_exist(path: str) -> None:
-    if not os.path.exists(path):
-        logger.debug("creating dir: %s", path)
-        os.makedirs(path)
 
 
 def get_filename_from_url(url: str) -> str:

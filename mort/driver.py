@@ -4,6 +4,7 @@ from typing import List, Dict, Tuple
 import requests
 
 from mort.local_conf import BROWSER_STACK_ACCESS_KEY, TEST_AGAINST_SERVER
+from mort.list_utils import all
 
 logger = logging.getLogger(__name__)
 
@@ -58,19 +59,23 @@ def submit_request(path: str, targets: List[Dict]) -> str:
     return job_id
 
 
-def is_job_done(job_id: str) -> Tuple[bool, Dict]:
+def is_done(payload: Dict) -> bool:
+    return 'done' == payload['state']
+
+
+def get_job_state(job_id: str) -> Tuple[bool, Dict]:
     """
     Check whether the job is finished and return the BrowserStack response with it.
 
     :param job_id: the screen shot job returned by BrowserStack.
-    :return: (is_job_done?, payload)
+    :return: (get_job_state?, payload)
     """
     r = requests.get('https://www.browserstack.com/screenshots/' + job_id + '.json', auth=BROWSER_STACK_ACCESS_KEY)
     logger.debug("Job returns: %d", r.status_code)
     logger.debug("    payload: %s", r.content)
 
     payload = r.json()
-    return 'done' == payload['state'], payload
+    return is_done(payload) or all(is_done, payload['screenshots']), payload
 
 
 def download_latest_target_list(to_json_file: str) -> int:
@@ -95,5 +100,5 @@ def download_latest_target_list(to_json_file: str) -> int:
 #         "device": "Google Nexus 6",
 #         "browser_version": "",
 #     }]))
-# print(is_job_done('fdd01e6683e0474ede370b753f870542f364f8ba'))
+# print(get_job_state('fdd01e6683e0474ede370b753f870542f364f8ba'))
 # print(download_latest_target_list("./os-device-list.json"))
