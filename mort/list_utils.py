@@ -20,8 +20,16 @@ def apply(func: Callable, args=None, kwargs=None):
     return func(*args, **kwargs)
 
 
-def some(l: List[Any], predicate: Callable[..., bool]) -> bool:
+def some(predicate: Callable[..., bool], l: List[Any]) -> bool:
     for el in l:
         if apply(predicate, el):
             return True
     return False
+
+
+def all(predicate: Callable[..., bool], l: List[Any]) -> bool:
+    for el in l:
+        if not apply(predicate, el):
+            return False
+    return True
+

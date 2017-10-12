@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from mort.list_utils import some, iterable, apply
+from mort.list_utils import some, iterable, apply, all
 
 
 def is_three(x):
@@ -12,12 +12,16 @@ def is_multiple(x, y):
 
 
 class TestListUtils(TestCase):
-    def test_some(self):
-        self.assertTrue(some([1, 2, 3], is_three))
-        self.assertFalse(some([1, 2, 4], is_three))
+    def test_all(self):
+        self.assertFalse(all(is_three, [1, 2, 3]))
+        self.assertTrue(all(is_three, [3, 3, 3]))
 
-        self.assertFalse(some([(5, 3), (3, 2)], is_multiple))
-        self.assertTrue(some([(4, 2), (3, 2)], is_multiple))
+    def test_some(self):
+        self.assertTrue(some(is_three, [1, 2, 3]))
+        self.assertFalse(some(is_three, [1, 2, 4]))
+
+        self.assertFalse(some(is_multiple, [(5, 3), (3, 2)]))
+        self.assertTrue(some(is_multiple, [(4, 2), (3, 2)]))
 
     def test_iterable(self):
         self.assertTrue(iterable([]))
