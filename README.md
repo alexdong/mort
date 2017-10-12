@@ -105,13 +105,13 @@ Mort is a simple, albeit a tasteful, wrapper over three important services that 
 
 <div align="center">
   <a href="https://www.browserstack.com/screenshots/api">
-    <img width="200" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/browserstack.svg">
+    <img width="300" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/browserstack.jpg">
   </a>
   <a href="http://scikit-image.org/">
-    <img width="200" heigth="200" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/scikit-image.png">
+    <img width="300" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/scikit-image.png">
   </a>
   <a href="https://opencv.org/">
-    <img width="100" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/opencv.svg">
+    <img width="100" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/opencv.png">
   </a>
 </div>
 
