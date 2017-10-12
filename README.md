@@ -105,13 +105,13 @@ Mort is a simple, albeit a tasteful, wrapper over three important services that 
 
 <div align="center">
   <a href="https://www.browserstack.com/screenshots/api">
-    <img width="200" heigth="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+    <img width="200" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/browserstack.svg">
   </a>
   <a href="http://scikit-image.org/">
-    <img width="200" heigth="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+    <img width="200" heigth="200" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/scikit-image.png">
   </a>
   <a href="https://opencv.org/">
-    <img width="200" heigth="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+    <img width="100" src="https://raw.githubusercontent.com/alexdong/mort/master/assets/opencv.svg">
   </a>
 </div>
 
@@ -122,13 +122,6 @@ Mort is a simple, albeit a tasteful, wrapper over three important services that 
 
 * Mort relies on **git**'s hash value for different versions. Different from the `gemini` approach, instead of maintaining a golden standard of a set of screen shots, which inevitably brings the burden of maintaining it, mort takes a lightweight approach: it generates the screen shots with the current git hash, retrieved by running `git rev-parse HEAD`.
 
-# Limitations
-
-Mort scratches my own itch and I don't have any near term plan to extend it. But it's far from finished by any stretch of imagination. Following is a list of some areas PR will be greatly appreciated. 
-
-- Gray scale only. The computer vision algorithm we use
-- `mort init`: Generate the default `mort.config.js` file if one doesn't exist in the current folder by taking the user through a list of questions.
-- Support login and authentication
 
 # Tech notes and limitations
 
