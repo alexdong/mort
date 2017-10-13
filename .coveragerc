@@ -1,9 +1,9 @@
 [run]
 source = mort/
 omit =
+    mort/main.py
     tests/*
     lib/*
-branch = True
 
 [report]
 # Regexes for lines to exclude from consideration

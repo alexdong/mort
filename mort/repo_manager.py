@@ -50,12 +50,10 @@ def load_screenshots(paths: List[str], targets: List[Dict], curr_git_hash: str, 
         for target in targets:
             curr_screenshot = get_screenshot(curr_git_hash, path, target)
             ref_screenshot = get_screenshot(ref_git_hash, path, target)
-            if not curr_screenshot or not ref_screenshot:
-                continue
-
-            curr_path = get_screenshot_path(curr_git_hash, curr_screenshot)
-            ref_path = get_screenshot_path(ref_git_hash, ref_screenshot)
-            results.append((path, target, curr_path, ref_path))
+            if curr_screenshot and ref_screenshot:
+                curr_path = get_screenshot_path(curr_git_hash, curr_screenshot)
+                ref_path = get_screenshot_path(ref_git_hash, ref_screenshot)
+                results.append((path, target, curr_path, ref_path))
 
     return results
 
