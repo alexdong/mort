@@ -2,6 +2,9 @@
 
 Mort is a Mobile Responsibility Regression Test tool for web developers and designers. 
 
+[![Build Status](https://travis-ci.org/alexdong/mort.svg?branch=master)](https://travis-ci.org/alexdong/mort)
+[![codecov](https://codecov.io/gh/alexdong/mort/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdong/mort)
+
 There are only two commands to it.
 
 `mort capture`: Mort generates full-page screen shots of any web pages specified, from **real devices and in parallel. **. Instead of manually clicking through each pages and fiddle with different device resolutions, the capture utility makes it trivial for one to see all variations by flipping through the images.
