@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from mort.imgdiff import get_similarity_index, generate_annotated_diff_image
-from tests.data import get_absolute_path
+from mort.file_utils import get_absolute_path
 
 
 class TestImageDiff(TestCase):

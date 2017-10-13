@@ -1,5 +1,9 @@
 [run]
-source=mort/
+source = mort/
+omit =
+    tests/*
+    lib/*
+branch = True
 
 [report]
 # Regexes for lines to exclude from consideration

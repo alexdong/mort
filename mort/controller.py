@@ -53,7 +53,7 @@ def compare(paths: List[str], targets: List[Dict], curr_git_hash: str, ref_git_h
         logger.debug("Image for %s + %s has similar index of %.2f", path, target, diff_index)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     from mort.local_conf import PATHS, TARGETS
 
     capture(PATHS, TARGETS, '5e26d930')

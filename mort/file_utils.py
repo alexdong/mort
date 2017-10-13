@@ -14,3 +14,15 @@ def create_dir_if_not_exists(path: str) -> bool:
 
     os.makedirs(path)
     return True
+
+
+def get_absolute_path(relative_path):
+    """ Pycharm test environment differs from py.test. So here we
+    try to accomodate both by making a slight change to the path.
+
+    All the `relative_path` assume it's in the project's root directory,
+    whereas Pycharm considers the `getcwd` to be in `tests`. """
+    cwd = os.getcwd()
+    if cwd.endswith('tests'):
+        cwd = cwd.replace('/tests', '')
+    return os.path.join(cwd, relative_path)

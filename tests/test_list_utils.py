@@ -3,6 +3,10 @@ from unittest import TestCase
 from mort.list_utils import some, iterable, apply, every
 
 
+def empty():
+    return True
+
+
 def is_three(x):
     return x == 3
 
@@ -30,6 +34,7 @@ class TestListUtils(TestCase):
         self.assertFalse(iterable(1))
 
     def test_apply(self):
+        self.assertTrue(apply(empty, None))
         self.assertFalse(apply(is_three, 1))
         self.assertTrue(apply(is_three, 3))
         self.assertTrue(apply(is_multiple, (4, 2)))

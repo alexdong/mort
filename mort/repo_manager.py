@@ -1,14 +1,14 @@
 import json
-from functools import partial
 import logging
 import os
+from functools import partial
 from typing import List, Dict, Optional, Tuple
 
+from mort.driver import is_done
+from mort.file_utils import create_dir_if_not_exists
+from mort.list_utils import first
 from mort.local_conf import SCREEN_SHOT_SAVED_TO
 from mort.matcher import target_matches
-from mort.driver import is_done
-from mort.list_utils import first
-from mort.file_utils import create_dir_if_not_exists
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,6 @@ def get_screenshot_path(git_hash: str, screenshot: Dict) -> str:
     """ Return the full path to the screenshot image on disk for given `git_hash` """
     return os.path.join(SCREEN_SHOT_SAVED_TO, git_hash,
                         '/'.join(screenshot['image_url'].split('/')[-2:]))
-
 
 
 def load_screenshots(paths: List[str], targets: List[Dict], curr_git_hash: str, ref_git_hash: str) -> List[Tuple]:
