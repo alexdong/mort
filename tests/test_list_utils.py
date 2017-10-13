@@ -37,5 +37,6 @@ class TestListUtils(TestCase):
         self.assertTrue(apply(empty, None))
         self.assertFalse(apply(is_three, 1))
         self.assertTrue(apply(is_three, 3))
+        self.assertTrue(apply(is_three, (3)))
         self.assertTrue(apply(is_multiple, (4, 2)))
         self.assertFalse(apply(is_multiple, (3, 2)))

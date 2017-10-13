@@ -23,6 +23,6 @@ def get_absolute_path(relative_path):
     All the `relative_path` assume it's in the project's root directory,
     whereas Pycharm considers the `getcwd` to be in `tests`. """
     cwd = os.getcwd()
-    if cwd.endswith('tests'):
+    if cwd.endswith('tests'): # pragma: no cover
         cwd = cwd.replace('/tests', '')
     return os.path.join(cwd, relative_path)
