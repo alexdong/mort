@@ -2,11 +2,11 @@ import json
 from unittest import mock, TestCase
 
 from mort.repo_manager import extract_urls_from_job_details, get_screenshot_path, get_screenshot
-from tests.data import JOB_ID, JOB_DETAIL, GIT_HASH_CURR, PATH
+from tests.data import JOB_ID, JOB_DETAIL, GIT_HASH_CURR, PATH, get_absolute_path
 
 
 class TestRepoManager(TestCase):
-    @mock.patch('os.path.join', return_value="./resources/manifest.json")
+    @mock.patch('os.path.join', return_value=get_absolute_path("tests/resources/manifest.json"))
     def test_find_all_screenshots(self, _):
         self.assertIsNone(get_screenshot(GIT_HASH_CURR, PATH, {"browser": "ie", "browser_version": "100"}))
         screen_shot = get_screenshot(GIT_HASH_CURR, PATH, {"browser": "ie", "browser_version": "11"})

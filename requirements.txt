@@ -1,9 +1,9 @@
 requests
 httplib2
-scikit-image
 imutils
 opencv-python
 opencv-contrib-python
+scikit-image
 click
 ipython
 mypy

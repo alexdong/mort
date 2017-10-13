@@ -1,11 +1,12 @@
 from unittest import TestCase
 
 from mort.imgdiff import get_similarity_index, generate_annotated_diff_image
+from tests.data import get_absolute_path
 
 
 class TestImageDiff(TestCase):
-    ORIGIN = './resources/origin.png'
-    EDITED = './resources/edited.png'
+    ORIGIN = get_absolute_path('tests/resources/origin.png')
+    EDITED = get_absolute_path('tests/resources/edited.png')
 
     def test_get_similarity_index(self):
         index = get_similarity_index(self.EDITED, self.ORIGIN)

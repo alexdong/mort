@@ -1,5 +1,5 @@
 [run]
-source=mort
+source=mort/
 
 [report]
 # Regexes for lines to exclude from consideration

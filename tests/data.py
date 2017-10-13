@@ -1,3 +1,10 @@
+import os
+
+
+def get_absolute_path(relative_path):
+    return os.path.join(os.getcwd(), relative_path)
+
+
 PATH = "/products/collage-posters"
 
 TARGETS = [
