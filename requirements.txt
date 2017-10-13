@@ -7,7 +7,9 @@ opencv-contrib-python
 click
 ipython
 mypy
+codecov
 pytest
+pytest-cov
 pytest-timeout
 pylint
 coverage
