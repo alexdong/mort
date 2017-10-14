@@ -101,6 +101,10 @@ Additionally, you can fetch the latest os-device-list by running `mort update`.
     modd
     pytest
 
+    # Before send in a Pull Request
+    fab coverage
+    fab lint
+
 
 # Giant shoulders
 
