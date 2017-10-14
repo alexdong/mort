@@ -11,7 +11,7 @@ from mort.repo_manager import extract_urls_from_job_details, local_dir_for_scree
 logger = logging.getLogger(__name__)
 
 
-def capture(paths: List[str], targets: List[Dict], git_hash: str, per_request_timeout_in_seconds=60):
+def capture(paths: List[str], targets: List[Dict], git_hash: str):
     """
     Capture the screen shots for all the `paths` across all the OS and devices
     defined in `targets`.
@@ -29,14 +29,16 @@ def capture(paths: List[str], targets: List[Dict], git_hash: str, per_request_ti
     for path in paths:
         logger.debug("Requesting screen shot for %s ...", path)
         job_id = submit_request(path, targets)
-        for tries in range(per_request_timeout_in_seconds):
+        total_seconds_in_waiting = 0
+        while True:
             (job_is_completed, payload) = get_job_state(job_id)
             if job_is_completed:
                 logger.info("Job %s is completed. ", job_id)
                 break
 
             done_count = len(list(filter(is_done, payload['screenshots'])))
-            logger.debug("Waiting %d seconds, working done so far [%d / %d]", tries, done_count, len(targets))
+            total_seconds_in_waiting += 1
+            logger.debug("Waiting %d seconds, working done so far [%d / %d]", total_seconds_in_waiting, done_count, len(targets))
             time.sleep(1)
 
         results[path] = payload  # Take whatever finished at this moment
@@ -56,4 +58,4 @@ def compare(paths: List[str], targets: List[Dict], curr_git_hash: str, ref_git_h
 if __name__ == '__main__': # pragma: no cover
     from mort.local_conf import PATHS, TARGETS
 
-    capture(PATHS, TARGETS, '5e26d930')
+    capture(PATHS, TARGETS, '907b0451')

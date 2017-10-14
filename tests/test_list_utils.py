@@ -15,6 +15,10 @@ def is_multiple(x, y):
     return x % y == 0
 
 
+def say_hello(to="alex"):
+    return "hello {0}".format(to)
+
+
 class TestListUtils(TestCase):
     def test_every(self):
         self.assertFalse(every(is_three, [1, 2, 3]))
@@ -40,3 +44,4 @@ class TestListUtils(TestCase):
         self.assertTrue(apply(is_three, 3, None))
         self.assertTrue(apply(is_multiple, (4, 2)))
         self.assertFalse(apply(is_multiple, (3, 2)))
+        self.assertEqual('hello mia', apply(say_hello, None, {'to': 'mia'}))
