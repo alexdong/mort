@@ -1,6 +1,7 @@
 [run]
 source = mort/
 omit =
+    fabfile.py
     mort/main.py
     tests/*
     lib/*
